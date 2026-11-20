@@ -28,7 +28,8 @@ header h1{font-family:var(--serif);font-weight:700;font-size:clamp(36px,5vw,56px
 @keyframes entra{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}.panel{display:none}.panel.active{display:block;animation:entra .6s cubic-bezier(.2,.7,.2,1) both}
 .panel h2{display:flex;align-items:center;gap:16px;font-family:var(--serif);font-weight:700;color:var(--tinta);font-size:clamp(34px,4.5vw,46px);margin:0 0 6px}.panel h2:after{content:"";flex:0 0 80px;height:3px;background:linear-gradient(90deg,var(--oro),transparent);border-radius:3px}.intro{color:var(--texto);font-size:18px;margin:0 0 24px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.card{background:#fff;border:1px solid var(--oro-suave);border-radius:28px 28px 28px 8px;padding:30px;box-shadow:0 10px 30px #c9567f12;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}.card:hover{transform:translateY(-3px);box-shadow:0 18px 38px #c9567f1f}.card h3{font-family:var(--serif);font-size:29px;color:var(--rosa);margin:0 0 6px}
-.grid .card:nth-child(2){background:linear-gradient(160deg,#fff,var(--lila));border-radius:28px 28px 8px 28px}.grid .card:nth-child(2) h3{color:#8467b8}.grid .card:nth-child(3){background:linear-gradient(160deg,#fff,var(--menta));border-radius:28px 28px 8px 28px}.grid .card:nth-child(3) h3{color:var(--verde)}.grid .card:nth-child(4){border-left:6px solid var(--rosa)}
+#tab-contenido .grid .card:nth-child(2){background:linear-gradient(160deg,#fff,var(--lila));border-radius:28px 28px 8px 28px}#tab-contenido .grid .card:nth-child(2) h3{color:#8467b8}#tab-contenido .grid .card:nth-child(3){background:linear-gradient(160deg,#fff,var(--menta));border-radius:28px 28px 8px 28px}#tab-contenido .grid .card:nth-child(3) h3{color:var(--verde)}#tab-contenido .grid .card:nth-child(4){border-left:6px solid var(--rosa)}
+#tab-unidades .grid{grid-template-columns:1.6fr 1fr;align-items:start}#tab-unidades .grid .card:nth-child(2){background:linear-gradient(160deg,#fff,var(--lila));border-radius:28px 28px 8px 28px}#tab-unidades .grid .card:nth-child(2) h3{color:#8467b8}
 .panel.active .grid .card{animation:entra .7s cubic-bezier(.2,.7,.2,1) both}.panel.active .grid .card:nth-child(2){animation-delay:.08s}.panel.active .grid .card:nth-child(3){animation-delay:.16s}.panel.active .grid .card:nth-child(4){animation-delay:.24s}
 label{display:block;font-weight:700;font-size:15px;color:var(--tinta);margin:16px 0 7px}
 input,textarea{width:100%;padding:14px 16px;border:1px solid var(--linea);border-radius:14px;font:400 16px var(--sans);color:var(--tinta);background:var(--rosa-claro);outline:none;transition:border-color .25s,box-shadow .25s,background .25s}
@@ -36,9 +37,11 @@ input::placeholder,textarea::placeholder{color:#b3a2b0}input:focus,textarea:focu
 input[type=file]{padding:12px;border-style:dashed;border-width:2px;border-color:var(--oro);background:var(--rosa-claro);cursor:pointer;font-size:15px}input[type=file]::file-selector-button{border:0;border-radius:30px;padding:9px 18px;margin-right:12px;background:var(--rosa);color:#fff;font:700 14px var(--sans);cursor:pointer}
 .hint{font-size:14px;color:#8a7a87;margin:6px 0 0}.file-list{display:grid;gap:10px;margin-top:12px}.file-chip{display:flex;align-items:center;gap:12px;background:var(--rosa-claro);border:1px solid var(--linea);border-radius:16px;padding:10px 14px}.file-chip .fi{font-size:24px;flex-shrink:0}.file-chip .fn{flex:1;min-width:0}.file-chip .fn b{display:block;color:var(--tinta);font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-chip .fn span{font-size:13px;color:#8a7a87}.file-chip .tag{font-size:12px;font-weight:700;background:var(--menta);color:var(--verde);padding:2px 10px;border-radius:20px;margin-left:6px}.file-chip button{border:0;border-radius:30px;padding:7px 14px;font:700 13px var(--sans);cursor:pointer;transition:.2s;flex-shrink:0}.file-chip .quitar{background:#ffe9ee;color:#b83a62}.file-chip .quitar:hover{background:#b83a62;color:#fff}.file-chip .abrir{background:var(--menta);color:var(--verde)}.file-chip .abrir:hover{background:var(--verde);color:#fff}
 .actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}.primary,.secondary{border:0;border-radius:30px;padding:14px 28px;font:700 16px var(--sans);cursor:pointer;transition:background-position .6s,transform .2s,box-shadow .2s,background .2s}.primary{background:linear-gradient(110deg,#c9567f,#d97a9b,#c9567f);background-size:200% 100%;color:#fff;box-shadow:0 8px 20px #c9567f40}.primary:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 12px 26px #c9567f55}.primary:disabled{opacity:.6;cursor:wait;transform:none}.secondary{background:#fff;color:var(--rosa);border:2px solid var(--rosa);padding:12px 26px}.secondary:hover{background:var(--rosa-suave);transform:translateY(-2px)}.message{color:var(--verde);font-size:15px;font-weight:700;margin-top:14px;min-height:22px}.message.error{color:#b83a62}.message:not(:empty){animation:entra .4s both}
+.sub-titulo{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 4px;padding-top:20px;border-top:2px dashed var(--oro-suave)}.sub-titulo h4{margin:0;font-family:var(--serif);font-size:25px;color:var(--verde)}
+.sesion-bloque{background:#f7fcfb;border:1px solid #cfe9e4;border-left:6px solid var(--verde);border-radius:18px;padding:6px 20px 18px;margin-top:16px}.sesion-bloque .cab{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px}.sesion-bloque .cab strong{font-family:var(--serif);font-size:22px;color:var(--verde)}.sesion-bloque textarea{min-height:70px}.mini{border:0;border-radius:30px;padding:7px 14px;font:700 13px var(--sans);cursor:pointer;background:#ffe9ee;color:#b83a62;transition:.2s}.mini:hover{background:#b83a62;color:#fff}.vacio-sesiones{color:#8a7a87;font-size:15px;margin:10px 0 0}
 .unit-list{display:grid;gap:16px;margin-top:30px;counter-reset:u}.unit-row{counter-increment:u;position:relative;background:#fff;border:1px solid var(--oro-suave);border-radius:22px 22px 22px 6px;padding:20px 24px 20px 78px;display:flex;justify-content:space-between;align-items:center;gap:18px;box-shadow:0 8px 22px #c9567f10;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s;animation:entra .6s cubic-bezier(.2,.7,.2,1) both}
 .unit-row:before{content:counter(u);position:absolute;left:22px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),#e59ab6);color:#fff;font:700 18px/40px var(--sans);text-align:center;box-shadow:0 0 0 5px var(--rosa-claro)}.unit-row:hover{transform:translateY(-3px);box-shadow:0 16px 32px #c9567f1c}.unit-row>div:first-child{min-width:0}.unit-row strong{display:block;margin-bottom:4px;font-family:var(--serif);font-size:23px;color:var(--rosa);line-height:1.2;overflow-wrap:anywhere}.unit-row small{color:var(--texto);font-size:15px}.unit-row>div:last-child{display:flex;gap:8px;flex-shrink:0}.unit-row button{border:0;padding:10px 20px;border-radius:30px;margin-left:0;cursor:pointer;font:700 14px var(--sans);transition:.2s}.edit{background:var(--menta);color:var(--verde)}.edit:hover{background:var(--verde);color:#fff}.delete{background:#ffe9ee;color:#b83a62}.delete:hover{background:#b83a62;color:#fff}.empty{background:#fff;border:2px dashed var(--oro-suave);padding:30px;border-radius:22px;color:var(--texto);text-align:center;font-size:18px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}@media(max-width:750px){body{font-size:16px}.layout{display:block}.sidebar{width:100%;height:auto;position:static;padding:18px 16px;border-right:0;border-bottom:3px solid var(--oro-suave)}.brand{font-size:26px}.brand-ecg{margin-bottom:14px}.sidebar h4{display:none}.menu{display:flex;flex-wrap:wrap;gap:8px}.menu button{width:auto;margin:0;padding:11px 16px}.menu button:hover{transform:none}.logout{margin-top:14px;width:100%}main{padding:20px 14px 40px}header{display:block;padding:24px 22px}.status{display:inline-flex;margin-top:16px}.card{padding:24px}.unit-row{align-items:flex-start;flex-direction:column;padding:20px 20px 20px 74px}.unit-row>div:last-child{flex-wrap:wrap}}
+@media(max-width:1000px){#tab-unidades .grid{grid-template-columns:1fr}}@media(max-width:900px){.grid{grid-template-columns:1fr}}@media(max-width:750px){body{font-size:16px}.layout{display:block}.sidebar{width:100%;height:auto;position:static;padding:18px 16px;border-right:0;border-bottom:3px solid var(--oro-suave)}.brand{font-size:26px}.brand-ecg{margin-bottom:14px}.sidebar h4{display:none}.menu{display:flex;flex-wrap:wrap;gap:8px}.menu button{width:auto;margin:0;padding:11px 16px}.menu button:hover{transform:none}.logout{margin-top:14px;width:100%}main{padding:20px 14px 40px}header{display:block;padding:24px 22px}.status{display:inline-flex;margin-top:16px}.card{padding:24px}.unit-row{align-items:flex-start;flex-direction:column;padding:20px 20px 20px 74px}.unit-row>div:last-child{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition:none!important}.brand-ecg path{stroke-dashoffset:0}}
 </style>
 </head>
@@ -65,19 +68,22 @@ input[type=file]{padding:12px;border-style:dashed;border-width:2px;border-color:
 </section>
 
 <section class="panel" id="tab-unidades">
-<h2>Administrar unidades</h2><p class="intro">Agrega, modifica o elimina las unidades de aprendizaje, y adjunta los archivos que necesites.</p>
+<h2>Administrar unidades</h2><p class="intro">Agrega las unidades que quieras, añade sesiones dentro de cada una y adjunta documentos.</p>
 <div class="grid">
 <div class="card"><h3 id="titulo-formulario">Agregar una unidad</h3>
 <form id="form-unidad"><input type="hidden" id="unidad-id">
 <label for="unidad-nombre">Nombre de la unidad</label><input id="unidad-nombre" required placeholder="Nombre de la unidad">
-<label for="sesion1">Sesión 1</label><input id="sesion1" placeholder="Tema de la sesión 1">
-<label for="sesion2">Sesión 2</label><input id="sesion2" placeholder="Tema de la sesión 2">
 <label for="unidad-descripcion">Descripción</label><textarea id="unidad-descripcion" placeholder="Descripción de la unidad"></textarea>
-<label for="unidad-archivos">Archivos adjuntos</label><input id="unidad-archivos" type="file" multiple><p class="hint">Word, PDF, imágenes, Excel, PowerPoint o cualquier otro archivo (máx. 20 MB cada uno).</p>
+<label for="unidad-archivos">Documentos de la unidad</label><input id="unidad-archivos" type="file" multiple><p class="hint">Word, PDF, imágenes, Excel, PowerPoint o cualquier archivo (máx. 20 MB cada uno).</p>
 <div class="file-list" id="lista-adjuntos"></div>
+
+<div class="sub-titulo"><h4>Sesiones</h4><button class="secondary" type="button" id="btn-add-sesion">+ Añadir sesión</button></div>
+<p class="hint">Cada sesión puede tener su propio título, descripción y documentos.</p>
+<div id="sesiones-contenedor"></div>
+
 <div class="actions"><button class="primary" id="btn-guardar" type="submit">Agregar unidad</button><button class="secondary" type="button" id="limpiar">Limpiar</button></div><div class="message" id="mensaje-unidad" aria-live="polite"></div>
 </form></div>
-<div class="card"><h3>Información</h3><p class="intro">Las unidades que registres aparecerán automáticamente en la sección de unidades del portafolio principal.</p><p class="intro">Al agregar o editar una unidad puedes adjuntar uno o varios archivos. Al editar, también puedes quitar los que ya no necesites.</p><p class="hint">Los documentos de todas las unidades se guardan en el bucket archivos-unidades, organizados en carpetas separadas. El límite de este formulario es 20 MB por archivo.</p></div>
+<div class="card"><h3>Información</h3><p class="intro">Las unidades que registres aparecerán automáticamente en la sección de unidades del portafolio principal, con sus sesiones y documentos.</p><p class="intro">No hay límite de unidades ni de sesiones. Para modificar una, pulsa «Editar» en la lista de abajo.</p><p class="hint">Límite por archivo: 20 MB.</p></div>
 </div><div class="unit-list" id="lista-admin"></div>
 </section>
 </main></div>
@@ -88,30 +94,22 @@ input[type=file]{padding:12px;border-style:dashed;border-width:2px;border-color:
 const SUPABASE_URL = "https://jyxohnsvqhhnxcmkwfgg.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3La-D-KSxaVYsSYNmd6SSA_M4XkieaD";
 const ADMIN_EMAIL = "hademilagritospasminoishuiza@gmail.com";
+const BUCKET = "portafolio";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const CAMPOS=["curso-portada","institucion","estudiante","biografia-texto","mision-texto","vision-texto","descripcion-curso","competencia","metodologia"];
-const UNIDADES_INICIALES=[
-{nombre:"Fundamentos de la ética y la moral",sesion1:"Conceptos de ética y moral",sesion2:"Valores y principios morales",descripcion:"Fundamentos éticos que orientan la conducta humana y profesional."},
-{nombre:"Deontología y código de ética profesional",sesion1:"Concepto de deontología",sesion2:"Código de ética de enfermería",descripcion:"Deberes y responsabilidades del profesional de enfermería."},
-{nombre:"Principios de la bioética",sesion1:"Autonomía y beneficencia",sesion2:"No maleficencia y justicia",descripcion:"Aplicación de los principios bioéticos en el cuidado de la salud."},
-{nombre:"Valores y virtudes del profesional de enfermería",sesion1:"Respeto y empatía",sesion2:"Responsabilidad y solidaridad",descripcion:"Importancia de los valores en la relación con el paciente."},
-{nombre:"Derechos del paciente y consentimiento informado",sesion1:"Derechos de los pacientes",sesion2:"Consentimiento informado",descripcion:"Protección de la dignidad y autonomía de los pacientes."},
-{nombre:"Secreto profesional y confidencialidad",sesion1:"Privacidad del paciente",sesion2:"Protección de información",descripcion:"Protección de los datos personales y de salud."},
-{nombre:"Dilemas éticos en el cuidado",sesion1:"Identificación de dilemas",sesion2:"Toma de decisiones",descripcion:"Reflexión sobre conflictos éticos en enfermería."},
-{nombre:"Responsabilidad legal y ejercicio ético",sesion1:"Responsabilidad profesional",sesion2:"Implicancias legales",descripcion:"Obligaciones legales y éticas del ejercicio profesional."}
-];
 const MAX_BYTES=20*1024*1024;
-let unidadesCache=[];
-let adjuntosExistentes=[];
-let adjuntosNuevos=[];
-let adjuntosQuitados=[];
+const $=id=>document.getElementById(id);
 
-function mostrarMensaje(id,texto,esError=false){const el=document.getElementById(id);el.textContent=texto;el.classList.toggle("error",!!esError)}
-function formatoTamano(bytes){if(bytes<1024)return bytes+" B";if(bytes<1024*1024)return(bytes/1024).toFixed(1)+" KB";return(bytes/1024/1024).toFixed(1)+" MB"}
-function iconoArchivo(nombre,tipo){const ext=(nombre.split(".").pop()||"").toLowerCase();if((tipo||"").startsWith("image/"))return"🖼️";if(ext==="pdf")return"📕";if(["doc","docx","odt","rtf"].includes(ext))return"📘";if(["xls","xlsx","csv","ods"].includes(ext))return"📗";if(["ppt","pptx","odp"].includes(ext))return"📙";if(["zip","rar","7z"].includes(ext))return"🗜️";if((tipo||"").startsWith("video/"))return"🎞️";if((tipo||"").startsWith("audio/"))return"🎵";return"📄"}
-const BUCKET_ARCHIVOS = "archivos-unidades";
-function bucketDeUnidad(unidad){if(!unidad||!unidad.id)throw new Error("No se encontró el identificador de la unidad.");return BUCKET_ARCHIVOS}
+let unidadesCache=[];
+let estado=nuevoEstado();
+
+function nuevoEstado(){return{existentes:[],nuevos:[],quitados:[],sesiones:[],sesionesEliminadas:[]}}
+function nuevaSesion(datos){return{key:crypto.randomUUID(),id:datos&&datos.id||null,titulo:datos&&datos.titulo||"",descripcion:datos&&datos.descripcion||"",existentes:datos&&datos.existentes||[],nuevos:[],quitados:[]}}
+
+function mostrarMensaje(id,texto,esError=false){const el=$(id);el.textContent=texto;el.classList.toggle("error",!!esError)}
+function formatoTamano(bytes){bytes=Number(bytes)||0;if(bytes<1024)return bytes+" B";if(bytes<1024*1024)return(bytes/1024).toFixed(1)+" KB";return(bytes/1024/1024).toFixed(1)+" MB"}
+function iconoArchivo(nombre,tipo){const ext=(String(nombre).split(".").pop()||"").toLowerCase();if((tipo||"").startsWith("image/"))return"🖼️";if(ext==="pdf")return"📕";if(["doc","docx","odt","rtf"].includes(ext))return"📘";if(["xls","xlsx","csv","ods"].includes(ext))return"📗";if(["ppt","pptx","odp"].includes(ext))return"📙";if(["zip","rar","7z"].includes(ext))return"🗜️";if((tipo||"").startsWith("video/"))return"🎞️";if((tipo||"").startsWith("audio/"))return"🎵";return"📄"}
 function limpiarNombreArchivo(nombre){return nombre.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100)||"archivo"}
 function rutaDesdeMeta(meta){const partes=(meta.ruta||"").split("/");return{bucket:partes.shift(),path:partes.join("/")}}
 function validarArchivos(lista){const validos=[],rechazados=[];Array.from(lista).forEach(f=>f.size>MAX_BYTES?rechazados.push(f.name):validos.push(f));return{validos,rechazados}}
@@ -122,146 +120,228 @@ async function verificarSesion(){
  return true;
 }
 
-/* CONTENIDO */
+/* ===== CONTENIDO ===== */
 async function cargarContenido(){
  const {data,error}=await supabaseClient.from("contenido").select("campo,valor");
  if(error)throw error;
  const mapa=Object.fromEntries((data||[]).map(x=>[x.campo,x.valor]));
- CAMPOS.forEach(id=>{document.getElementById(id).value=typeof mapa[id]==="string"?mapa[id]:""});
+ CAMPOS.forEach(id=>{$(id).value=typeof mapa[id]==="string"?mapa[id]:""});
 }
-document.getElementById("form-contenido").addEventListener("submit",async e=>{
+$("form-contenido").addEventListener("submit",async e=>{
  e.preventDefault();const boton=e.submitter;boton.disabled=true;mostrarMensaje("mensaje-contenido","Guardando...");
  try{
-  const filas=CAMPOS.map(campo=>({campo,valor:document.getElementById(campo).value.trim(),actualizado_en:new Date().toISOString()}));
+  const filas=CAMPOS.map(campo=>({campo,valor:$(campo).value.trim(),actualizado_en:new Date().toISOString()}));
   const {error}=await supabaseClient.from("contenido").upsert(filas,{onConflict:"campo"});if(error)throw error;
   mostrarMensaje("mensaje-contenido","✓ Cambios guardados correctamente en Supabase.");
  }catch(err){console.error(err);mostrarMensaje("mensaje-contenido","No se pudieron guardar los cambios: "+(err.message||"revisa las políticas y la tabla contenido."),true)}
  finally{boton.disabled=false}
 });
-document.getElementById("recargar").addEventListener("click",async()=>{
- const b=document.getElementById("recargar");b.disabled=true;
+$("recargar").addEventListener("click",async()=>{
+ const b=$("recargar");b.disabled=true;
  try{await cargarContenido();mostrarMensaje("mensaje-contenido","Datos guardados cargados desde Supabase.")}
  catch(err){mostrarMensaje("mensaje-contenido","No se pudieron cargar los datos: "+err.message,true)}
  finally{b.disabled=false}
 });
 
-/* UNIDADES Y ARCHIVOS */
+/* ===== CARGA DE UNIDADES, SESIONES Y ARCHIVOS ===== */
 async function cargarUnidades(){
- let {data,error}=await supabaseClient.from("unidades").select("*").order("orden",{ascending:true});
- if(error)throw error;
- if(!data||data.length===0){
-  const iniciales=UNIDADES_INICIALES.map((u,i)=>({...u,orden:i+1}));
-  const resultado=await supabaseClient.from("unidades").insert(iniciales).select("*");
-  if(resultado.error)throw resultado.error;
-  data=resultado.data||[];
+ const u=await supabaseClient.from("unidades").select("*").order("orden",{ascending:true});
+ if(u.error)throw u.error;
+ const unidades=u.data||[];
+ let sesiones=[],archivos=[];
+ if(unidades.length){
+  const ids=unidades.map(x=>x.id);
+  const s=await supabaseClient.from("sesiones").select("*").in("unidad_id",ids).order("orden",{ascending:true});
+  if(s.error)throw s.error;sesiones=s.data||[];
+  const a=await supabaseClient.from("archivos").select("*").in("unidad_id",ids).order("creado_en",{ascending:true});
+  if(a.error)throw a.error;archivos=a.data||[];
  }
- unidadesCache=data;
- const ids=data.map(u=>u.id);
- let archivos=[];
- if(ids.length){const r=await supabaseClient.from("archivos").select("*").in("unidad_id",ids);if(r.error)throw r.error;archivos=r.data||[]}
- unidadesCache=unidadesCache.map(u=>({...u,archivos:archivos.filter(a=>a.unidad_id===u.id)}));
+ unidadesCache=unidades.map(un=>({
+  ...un,
+  archivos:archivos.filter(a=>a.unidad_id===un.id&&!a.sesion_id),
+  todosArchivos:archivos.filter(a=>a.unidad_id===un.id),
+  sesiones:sesiones.filter(s=>s.unidad_id===un.id).map(s=>({...s,archivos:archivos.filter(a=>a.sesion_id===s.id)}))
+ }));
  return unidadesCache;
 }
+
 async function mostrarListaAdmin(){
- const lista=document.getElementById("lista-admin");lista.replaceChildren();
+ const lista=$("lista-admin");lista.replaceChildren();
  const unidades=await cargarUnidades();
  if(unidades.length===0){const p=document.createElement("p");p.className="empty";p.textContent="Todavía no tienes unidades registradas.";lista.appendChild(p);return}
  unidades.forEach((unidad,index)=>{
   const fila=document.createElement("div");fila.className="unit-row";
   const info=document.createElement("div");const titulo=document.createElement("strong");titulo.textContent="Unidad "+(index+1)+": "+unidad.nombre;
-  const detalle=document.createElement("small");let texto=(unidad.sesion1||"Sin sesión 1")+" · "+(unidad.sesion2||"Sin sesión 2");const cant=unidad.archivos.length;if(cant)texto+=" · 📎 "+cant+(cant===1?" archivo":" archivos");detalle.textContent=texto;info.append(titulo,detalle);
-  const acciones=document.createElement("div");const editar=document.createElement("button");editar.className="edit";editar.textContent="Editar";editar.addEventListener("click",()=>editarUnidad(unidad));
-  const eliminar=document.createElement("button");eliminar.className="delete";eliminar.textContent="Eliminar";eliminar.addEventListener("click",()=>eliminarUnidad(unidad));
+  const detalle=document.createElement("small");
+  const ns=unidad.sesiones.length,na=unidad.todosArchivos.length;
+  detalle.textContent=ns+(ns===1?" sesión":" sesiones")+" · 📎 "+na+(na===1?" archivo":" archivos");
+  info.append(titulo,detalle);
+  const acciones=document.createElement("div");
+  const editar=document.createElement("button");editar.className="edit";editar.type="button";editar.textContent="Editar";editar.addEventListener("click",()=>editarUnidad(unidad));
+  const eliminar=document.createElement("button");eliminar.className="delete";eliminar.type="button";eliminar.textContent="Eliminar";eliminar.addEventListener("click",()=>eliminarUnidad(unidad));
   acciones.append(editar,eliminar);fila.append(info,acciones);lista.appendChild(fila);
  });
 }
-async function eliminarUnidad(unidad){
- if(!confirm("¿Seguro que deseas eliminar esta unidad y todos sus archivos adjuntos?"))return;
- try{
-  for(const meta of (unidad.archivos||[])){const r=rutaDesdeMeta(meta);const {error}=await supabaseClient.storage.from(r.bucket).remove([r.path]);if(error)throw error}
-  const {error}=await supabaseClient.from("unidades").delete().eq("id",unidad.id);if(error)throw error;
-  if(document.getElementById("unidad-id").value===unidad.id)limpiarFormulario();
-  await mostrarListaAdmin();mostrarMensaje("mensaje-unidad","Unidad y archivos eliminados correctamente.");
- }catch(err){console.error(err);mostrarMensaje("mensaje-unidad","No se pudo eliminar: "+err.message,true)}
-}
-function renderAdjuntos(){
- const cont=document.getElementById("lista-adjuntos");cont.replaceChildren();
- function chip(nombre,tipo,tamano,etiqueta,botones){
-  const fila=document.createElement("div");fila.className="file-chip";const ic=document.createElement("span");ic.className="fi";ic.textContent=iconoArchivo(nombre,tipo);
-  const info=document.createElement("div");info.className="fn";const n=document.createElement("b");n.textContent=nombre;const t=document.createElement("span");t.textContent=formatoTamano(tamano);
-  if(etiqueta){const tag=document.createElement("span");tag.className="tag";tag.textContent=etiqueta;t.appendChild(tag)}
-  info.append(n,t);fila.append(ic,info,...botones);return fila;
+
+/* ===== STORAGE ===== */
+async function borrarArchivos(metas){
+ if(!metas.length)return;
+ const porBucket={};
+ metas.forEach(m=>{const r=rutaDesdeMeta(m);(porBucket[r.bucket]=porBucket[r.bucket]||[]).push(r.path)});
+ for(const bucket of Object.keys(porBucket)){
+  const {error}=await supabaseClient.storage.from(bucket).remove(porBucket[bucket]);if(error)throw error;
  }
- function boton(texto,clase,fn){const b=document.createElement("button");b.type="button";b.className=clase;b.textContent=texto;b.addEventListener("click",fn);return b}
- adjuntosExistentes.forEach(meta=>cont.appendChild(chip(meta.nombre,meta.tipo,meta.tamano,"Guardado",[boton("Abrir","abrir",()=>abrirArchivo(meta)),boton("Quitar","quitar",()=>{adjuntosQuitados.push(meta);adjuntosExistentes=adjuntosExistentes.filter(m=>m.id!==meta.id);renderAdjuntos()})])));
- adjuntosNuevos.forEach(item=>cont.appendChild(chip(item.file.name,item.file.type,item.file.size,"Nuevo",[boton("Quitar","quitar",()=>{adjuntosNuevos=adjuntosNuevos.filter(a=>a.tmp!==item.tmp);renderAdjuntos()})])));
+ const ids=metas.map(m=>m.id).filter(Boolean);
+ if(ids.length){const {error}=await supabaseClient.from("archivos").delete().in("id",ids);if(error)throw error}
 }
-async function abrirArchivo(meta){
- try{
-  const r=rutaDesdeMeta(meta);const {data,error}=supabaseClient.storage.from(r.bucket).getPublicUrl(r.path);if(error)throw error;
-  window.location.href=data.publicUrl;
- }catch(err){alert("No se pudo abrir el archivo: "+err.message)}
+async function subirArchivos(unidadId,sesionId,items){
+ for(const item of items){
+  const path="unidad-"+unidadId+"/"+(sesionId||"general")+"/"+Date.now()+"_"+crypto.randomUUID().slice(0,8)+"_"+limpiarNombreArchivo(item.file.name);
+  const subida=await supabaseClient.storage.from(BUCKET).upload(path,item.file,{upsert:false,contentType:item.file.type||"application/octet-stream"});
+  if(subida.error)throw subida.error;
+  const meta={unidad_id:unidadId,sesion_id:sesionId||null,nombre:item.file.name,tipo:item.file.type||"",tamano:item.file.size,ruta:BUCKET+"/"+path};
+  const guardado=await supabaseClient.from("archivos").insert(meta);
+  if(guardado.error){await supabaseClient.storage.from(BUCKET).remove([path]);throw guardado.error}
+ }
 }
-document.getElementById("unidad-archivos").addEventListener("change",e=>{
- const {validos,rechazados}=validarArchivos(e.target.files);validos.forEach(file=>adjuntosNuevos.push({tmp:crypto.randomUUID(),file}));e.target.value="";renderAdjuntos();
+function abrirArchivo(meta){
+ try{const r=rutaDesdeMeta(meta);const {data}=supabaseClient.storage.from(r.bucket).getPublicUrl(r.path);window.open(data.publicUrl,"_blank","noopener")}
+ catch(err){alert("No se pudo abrir el archivo: "+err.message)}
+}
+
+/* ===== FORMULARIO: ARCHIVOS Y SESIONES ===== */
+function crearBoton(texto,clase,fn){const b=document.createElement("button");b.type="button";b.className=clase;b.textContent=texto;b.addEventListener("click",fn);return b}
+function crearChip(nombre,tipo,tamano,etiqueta,botones){
+ const fila=document.createElement("div");fila.className="file-chip";
+ const ic=document.createElement("span");ic.className="fi";ic.textContent=iconoArchivo(nombre,tipo);
+ const info=document.createElement("div");info.className="fn";
+ const n=document.createElement("b");n.textContent=nombre;
+ const t=document.createElement("span");t.textContent=formatoTamano(tamano);
+ if(etiqueta){const tag=document.createElement("span");tag.className="tag";tag.textContent=etiqueta;t.appendChild(tag)}
+ info.append(n,t);fila.append(ic,info,...botones);return fila;
+}
+function pintarChips(cont,grupo,alCambiar){
+ cont.replaceChildren();
+ grupo.existentes.forEach(meta=>cont.appendChild(crearChip(meta.nombre,meta.tipo,meta.tamano,"Guardado",[
+  crearBoton("Abrir","abrir",()=>abrirArchivo(meta)),
+  crearBoton("Quitar","quitar",()=>{grupo.quitados.push(meta);grupo.existentes=grupo.existentes.filter(m=>m.id!==meta.id);alCambiar()})
+ ])));
+ grupo.nuevos.forEach(item=>cont.appendChild(crearChip(item.file.name,item.file.type,item.file.size,"Nuevo",[
+  crearBoton("Quitar","quitar",()=>{grupo.nuevos=grupo.nuevos.filter(a=>a.tmp!==item.tmp);alCambiar()})
+ ])));
+}
+function agregarArchivosA(grupo,lista){
+ const {validos,rechazados}=validarArchivos(lista);
+ validos.forEach(file=>grupo.nuevos.push({tmp:crypto.randomUUID(),file}));
  if(rechazados.length)mostrarMensaje("mensaje-unidad","No se añadieron (superan 20 MB): "+rechazados.join(", "),true);else mostrarMensaje("mensaje-unidad","");
+}
+function renderAdjuntos(){pintarChips($("lista-adjuntos"),estado,renderAdjuntos)}
+
+$("unidad-archivos").addEventListener("change",e=>{agregarArchivosA(estado,e.target.files);e.target.value="";renderAdjuntos()});
+
+function renderSesiones(){
+ const cont=$("sesiones-contenedor");cont.replaceChildren();
+ if(!estado.sesiones.length){const p=document.createElement("p");p.className="vacio-sesiones";p.textContent="Esta unidad todavía no tiene sesiones. Pulsa «+ Añadir sesión».";cont.appendChild(p);return}
+ estado.sesiones.forEach((s,i)=>{
+  const bloque=document.createElement("div");bloque.className="sesion-bloque";
+  const cab=document.createElement("div");cab.className="cab";
+  const t=document.createElement("strong");t.textContent="Sesión "+(i+1);
+  cab.append(t,crearBoton("Quitar sesión","mini",()=>{if(s.id)estado.sesionesEliminadas.push(s);estado.sesiones=estado.sesiones.filter(x=>x.key!==s.key);renderSesiones()}));
+
+  const l1=document.createElement("label");l1.htmlFor="st-"+s.key;l1.textContent="Título de la sesión";
+  const i1=document.createElement("input");i1.id="st-"+s.key;i1.placeholder="Ej. Conceptos de ética y moral";i1.value=s.titulo;i1.addEventListener("input",()=>{s.titulo=i1.value});
+
+  const l2=document.createElement("label");l2.htmlFor="sd-"+s.key;l2.textContent="Descripción (opcional)";
+  const i2=document.createElement("textarea");i2.id="sd-"+s.key;i2.placeholder="Qué se trabaja en esta sesión";i2.value=s.descripcion;i2.addEventListener("input",()=>{s.descripcion=i2.value});
+
+  const l3=document.createElement("label");l3.htmlFor="sf-"+s.key;l3.textContent="Documentos de la sesión";
+  const lista=document.createElement("div");lista.className="file-list";
+  const refrescar=()=>pintarChips(lista,s,refrescar);
+  const i3=document.createElement("input");i3.id="sf-"+s.key;i3.type="file";i3.multiple=true;i3.addEventListener("change",()=>{agregarArchivosA(s,i3.files);i3.value="";refrescar()});
+
+  bloque.append(cab,l1,i1,l2,i2,l3,i3,lista);cont.appendChild(bloque);refrescar();
+ });
+}
+$("btn-add-sesion").addEventListener("click",()=>{
+ estado.sesiones.push(nuevaSesion());renderSesiones();
+ const inputs=$("sesiones-contenedor").querySelectorAll("input:not([type=file])");
+ const ultimo=inputs[inputs.length-1];if(ultimo)ultimo.focus();
 });
+
 function limpiarFormulario(){
- document.getElementById("form-unidad").reset();document.getElementById("unidad-id").value="";document.getElementById("titulo-formulario").textContent="Agregar una unidad";document.getElementById("btn-guardar").textContent="Agregar unidad";adjuntosExistentes=[];adjuntosNuevos=[];adjuntosQuitados=[];renderAdjuntos();
+ $("form-unidad").reset();$("unidad-id").value="";$("titulo-formulario").textContent="Agregar una unidad";$("btn-guardar").textContent="Agregar unidad";
+ estado=nuevoEstado();renderAdjuntos();renderSesiones();
 }
 function editarUnidad(unidad){
- limpiarFormulario();document.getElementById("unidad-id").value=unidad.id;document.getElementById("unidad-nombre").value=unidad.nombre;document.getElementById("sesion1").value=unidad.sesion1||"";document.getElementById("sesion2").value=unidad.sesion2||"";document.getElementById("unidad-descripcion").value=unidad.descripcion||"";
- adjuntosExistentes=(unidad.archivos||[]).map(x=>({...x}));renderAdjuntos();document.getElementById("titulo-formulario").textContent="Editar unidad";document.getElementById("btn-guardar").textContent="Guardar modificación";mostrarMensaje("mensaje-unidad","");document.getElementById("form-unidad").scrollIntoView({behavior:"smooth",block:"center"});
+ limpiarFormulario();
+ $("unidad-id").value=unidad.id;$("unidad-nombre").value=unidad.nombre;$("unidad-descripcion").value=unidad.descripcion||"";
+ estado.existentes=unidad.archivos.map(x=>({...x}));
+ estado.sesiones=unidad.sesiones.map(s=>nuevaSesion({id:s.id,titulo:s.titulo,descripcion:s.descripcion,existentes:s.archivos.map(x=>({...x}))}));
+ renderAdjuntos();renderSesiones();
+ $("titulo-formulario").textContent="Editar unidad";$("btn-guardar").textContent="Guardar modificación";mostrarMensaje("mensaje-unidad","");
+ $("form-unidad").scrollIntoView({behavior:"smooth",block:"start"});
 }
-async function subirAdjuntos(unidad){
- const bucket=bucketDeUnidad(unidad);const metas=[];
- for(const item of adjuntosNuevos){
-  const path=unidad.id+"/"+Date.now()+"_"+crypto.randomUUID()+"_"+limpiarNombreArchivo(item.file.name);
-  const subida=await supabaseClient.storage.from(bucket).upload(path,item.file,{upsert:false,contentType:item.file.type||"application/octet-stream"});
-  if(subida.error)throw subida.error;
-  const meta={unidad_id:unidad.id,nombre:item.file.name,tipo:item.file.type||"",tamano:item.file.size,ruta:bucket+"/"+path};
-  const guardado=await supabaseClient.from("archivos").insert(meta).select("*").single();
-  if(guardado.error){await supabaseClient.storage.from(bucket).remove([path]);throw guardado.error}
-  metas.push(guardado.data);
- }
- return metas;
-}
-async function guardarArchivosQuitados(){
- for(const meta of adjuntosQuitados){
-  const r=rutaDesdeMeta(meta);const eliminado=await supabaseClient.storage.from(r.bucket).remove([r.path]);if(eliminado.error)throw eliminado.error;
-  const {error}=await supabaseClient.from("archivos").delete().eq("id",meta.id);if(error)throw error;
- }
-}
-document.getElementById("form-unidad").addEventListener("submit",async e=>{
- e.preventDefault();const boton=document.getElementById("btn-guardar");boton.disabled=true;mostrarMensaje("mensaje-unidad","Guardando unidad y archivos...");
+
+/* ===== GUARDAR / ELIMINAR UNIDAD ===== */
+$("form-unidad").addEventListener("submit",async e=>{
+ e.preventDefault();const boton=$("btn-guardar");boton.disabled=true;mostrarMensaje("mensaje-unidad","Guardando unidad, sesiones y archivos...");
  try{
-  const id=document.getElementById("unidad-id").value;
-  const nombre=document.getElementById("unidad-nombre").value.trim();
-  const datos={nombre,sesion1:document.getElementById("sesion1").value.trim(),sesion2:document.getElementById("sesion2").value.trim(),descripcion:document.getElementById("unidad-descripcion").value.trim()};
+  if(estado.sesiones.some(s=>!s.titulo.trim()))throw new Error("Escribe el título de todas las sesiones (o quita las que no uses).");
+  const id=$("unidad-id").value;
+  const datos={nombre:$("unidad-nombre").value.trim(),descripcion:$("unidad-descripcion").value.trim()};
   let unidad;
   if(id){
-   const resultado=await supabaseClient.from("unidades").update({...datos,actualizado_en:new Date().toISOString()}).eq("id",id).select("*").single();
-   if(resultado.error)throw resultado.error;unidad=resultado.data;
+   const r=await supabaseClient.from("unidades").update({...datos,actualizado_en:new Date().toISOString()}).eq("id",id).select("*").single();
+   if(r.error)throw r.error;unidad=r.data;
   }else{
-   const {data:existentes,error}=await supabaseClient.from("unidades").select("orden");if(error)throw error;
-   if(existentes.length>=8)throw new Error("Ya tienes 8 unidades. Puedes administrar hasta 8 unidades desde este panel.");
-   const usados=new Set(existentes.map(x=>Number(x.orden)));const orden=[1,2,3,4,5,6,7,8].find(n=>!usados.has(n)) || (Math.max(0,...usados)+1);
-   const resultado=await supabaseClient.from("unidades").insert({...datos,orden}).select("*").single();if(resultado.error)throw resultado.error;unidad=resultado.data;
+   const ult=await supabaseClient.from("unidades").select("orden").order("orden",{ascending:false}).limit(1);
+   if(ult.error)throw ult.error;
+   const orden=(ult.data&&ult.data[0]?Number(ult.data[0].orden)||0:0)+1;
+   const r=await supabaseClient.from("unidades").insert({...datos,orden}).select("*").single();
+   if(r.error)throw r.error;unidad=r.data;
   }
-  await guardarArchivosQuitados();
-  await subirAdjuntos(unidad);
-  limpiarFormulario();await mostrarListaAdmin();mostrarMensaje("mensaje-unidad","✓ Unidad y archivos guardados correctamente en Supabase.");
- }catch(err){console.error(err);mostrarMensaje("mensaje-unidad","No se pudo completar el guardado: "+(err.message||"revisa las tablas, buckets y políticas de Supabase."),true)}
+
+  await borrarArchivos(estado.quitados);
+  await subirArchivos(unidad.id,null,estado.nuevos);
+
+  for(const s of estado.sesionesEliminadas){
+   await borrarArchivos([...s.existentes,...s.quitados]);
+   const {error}=await supabaseClient.from("sesiones").delete().eq("id",s.id);if(error)throw error;
+  }
+
+  for(let i=0;i<estado.sesiones.length;i++){
+   const s=estado.sesiones[i];
+   const d={titulo:s.titulo.trim(),descripcion:s.descripcion.trim(),orden:i+1};
+   let sesionId=s.id;
+   if(sesionId){const {error}=await supabaseClient.from("sesiones").update(d).eq("id",sesionId);if(error)throw error}
+   else{const r=await supabaseClient.from("sesiones").insert({...d,unidad_id:unidad.id}).select("id").single();if(r.error)throw r.error;sesionId=r.data.id}
+   await borrarArchivos(s.quitados);
+   await subirArchivos(unidad.id,sesionId,s.nuevos);
+  }
+
+  limpiarFormulario();await mostrarListaAdmin();
+  mostrarMensaje("mensaje-unidad","✓ Unidad, sesiones y archivos guardados correctamente.");
+ }catch(err){console.error(err);mostrarMensaje("mensaje-unidad","No se pudo completar el guardado: "+(err.message||"revisa las tablas, el bucket y las políticas de Supabase."),true)}
  finally{boton.disabled=false}
 });
-document.getElementById("limpiar").addEventListener("click",()=>{limpiarFormulario();mostrarMensaje("mensaje-unidad","")});
 
-/* PESTAÑAS Y SESIÓN: siempre en esta misma pestaña */
+async function eliminarUnidad(unidad){
+ if(!confirm("¿Seguro que deseas eliminar esta unidad con todas sus sesiones y archivos?"))return;
+ try{
+  await borrarArchivos(unidad.todosArchivos||[]);
+  const {error}=await supabaseClient.from("unidades").delete().eq("id",unidad.id);if(error)throw error;
+  if($("unidad-id").value===unidad.id)limpiarFormulario();
+  await mostrarListaAdmin();mostrarMensaje("mensaje-unidad","Unidad eliminada correctamente.");
+ }catch(err){console.error(err);mostrarMensaje("mensaje-unidad","No se pudo eliminar: "+err.message,true)}
+}
+$("limpiar").addEventListener("click",()=>{limpiarFormulario();mostrarMensaje("mensaje-unidad","")});
+
+/* ===== PESTAÑAS Y SESIÓN ===== */
 document.querySelectorAll("[data-tab]").forEach(boton=>boton.addEventListener("click",()=>{
- document.querySelectorAll("[data-tab]").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));boton.classList.add("active");document.getElementById("tab-"+boton.dataset.tab).classList.add("active");
+ document.querySelectorAll("[data-tab]").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));boton.classList.add("active");$("tab-"+boton.dataset.tab).classList.add("active");
 }));
-document.getElementById("cerrar-sesion").addEventListener("click",async()=>{
- const boton=document.getElementById("cerrar-sesion");boton.disabled=true;
+$("cerrar-sesion").addEventListener("click",async()=>{
+ const boton=$("cerrar-sesion");boton.disabled=true;
  try{await supabaseClient.auth.signOut()}catch(err){console.error(err)}
  window.location.href="index.html";
 });
@@ -271,14 +351,9 @@ supabaseClient.auth.onAuthStateChange((evento,sesion)=>{
 
 (async function iniciarPanel(){
  if(!await verificarSesion())return;
- try{
-  await cargarContenido();
-  await mostrarListaAdmin();
-  renderAdjuntos();
- }catch(err){
-  console.error(err);
-  alert("No se pudieron cargar los datos de Supabase. Revisa las tablas, las políticas RLS y los permisos. Detalle: "+err.message);
- }
+ renderAdjuntos();renderSesiones();
+ try{await cargarContenido()}catch(err){console.error(err);mostrarMensaje("mensaje-contenido","No se pudo cargar el contenido: "+err.message,true)}
+ try{await mostrarListaAdmin()}catch(err){console.error(err);mostrarMensaje("mensaje-unidad","No se pudieron cargar las unidades: "+err.message+" ¿Ejecutaste supabase-actualizacion.sql?",true)}
 })();
 </script>
 </body>
