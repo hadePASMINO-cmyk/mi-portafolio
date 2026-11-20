@@ -77,7 +77,7 @@ input[type=file]{padding:12px;border-style:dashed;border-width:2px;border-color:
 <div class="file-list" id="lista-adjuntos"></div>
 <div class="actions"><button class="primary" id="btn-guardar" type="submit">Agregar unidad</button><button class="secondary" type="button" id="limpiar">Limpiar</button></div><div class="message" id="mensaje-unidad" aria-live="polite"></div>
 </form></div>
-<div class="card"><h3>Información</h3><p class="intro">Las unidades que registres aparecerán automáticamente en la sección de unidades del portafolio principal.</p><p class="intro">Al agregar o editar una unidad puedes adjuntar uno o varios archivos. Al editar, también puedes quitar los que ya no necesites.</p><p class="hint">Se permiten hasta 8 unidades, cada una con su bucket correspondiente. El límite de este formulario es 20 MB por archivo.</p></div>
+<div class="card"><h3>Información</h3><p class="intro">Las unidades que registres aparecerán automáticamente en la sección de unidades del portafolio principal.</p><p class="intro">Al agregar o editar una unidad puedes adjuntar uno o varios archivos. Al editar, también puedes quitar los que ya no necesites.</p><p class="hint">Los documentos de todas las unidades se guardan en el bucket archivos-unidades, organizados en carpetas separadas. El límite de este formulario es 20 MB por archivo.</p></div>
 </div><div class="unit-list" id="lista-admin"></div>
 </section>
 </main></div>
@@ -110,7 +110,8 @@ let adjuntosQuitados=[];
 function mostrarMensaje(id,texto,esError=false){const el=document.getElementById(id);el.textContent=texto;el.classList.toggle("error",!!esError)}
 function formatoTamano(bytes){if(bytes<1024)return bytes+" B";if(bytes<1024*1024)return(bytes/1024).toFixed(1)+" KB";return(bytes/1024/1024).toFixed(1)+" MB"}
 function iconoArchivo(nombre,tipo){const ext=(nombre.split(".").pop()||"").toLowerCase();if((tipo||"").startsWith("image/"))return"🖼️";if(ext==="pdf")return"📕";if(["doc","docx","odt","rtf"].includes(ext))return"📘";if(["xls","xlsx","csv","ods"].includes(ext))return"📗";if(["ppt","pptx","odp"].includes(ext))return"📙";if(["zip","rar","7z"].includes(ext))return"🗜️";if((tipo||"").startsWith("video/"))return"🎞️";if((tipo||"").startsWith("audio/"))return"🎵";return"📄"}
-function bucketDeUnidad(unidad){const n=Number(unidad.orden);if(!Number.isInteger(n)||n<1||n>8)throw new Error("La unidad no tiene un orden válido (1 al 8).");return"unidad-"+n}
+const BUCKET_ARCHIVOS = "archivos-unidades";
+function bucketDeUnidad(unidad){if(!unidad||!unidad.id)throw new Error("No se encontró el identificador de la unidad.");return BUCKET_ARCHIVOS}
 function limpiarNombreArchivo(nombre){return nombre.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100)||"archivo"}
 function rutaDesdeMeta(meta){const partes=(meta.ruta||"").split("/");return{bucket:partes.shift(),path:partes.join("/")}}
 function validarArchivos(lista){const validos=[],rechazados=[];Array.from(lista).forEach(f=>f.size>MAX_BYTES?rechazados.push(f.name):validos.push(f));return{validos,rechazados}}
@@ -243,8 +244,8 @@ document.getElementById("form-unidad").addEventListener("submit",async e=>{
    if(resultado.error)throw resultado.error;unidad=resultado.data;
   }else{
    const {data:existentes,error}=await supabaseClient.from("unidades").select("orden");if(error)throw error;
-   if(existentes.length>=8)throw new Error("Ya tienes 8 unidades. Los buckets creados permiten administrar hasta 8 unidades.");
-   const usados=new Set(existentes.map(x=>Number(x.orden)));const orden=[1,2,3,4,5,6,7,8].find(n=>!usados.has(n));if(!orden)throw new Error("No hay un número de unidad disponible entre 1 y 8.");
+   if(existentes.length>=8)throw new Error("Ya tienes 8 unidades. Puedes administrar hasta 8 unidades desde este panel.");
+   const usados=new Set(existentes.map(x=>Number(x.orden)));const orden=[1,2,3,4,5,6,7,8].find(n=>!usados.has(n)) || (Math.max(0,...usados)+1);
    const resultado=await supabaseClient.from("unidades").insert({...datos,orden}).select("*").single();if(resultado.error)throw resultado.error;unidad=resultado.data;
   }
   await guardarArchivosQuitados();
