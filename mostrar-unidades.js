@@ -1,21 +1,31 @@
-/* Carga el contenido y las unidades del portafolio desde Supabase.
-   Reemplaza al mostrar-unidades.js anterior (que usaba localStorage). */
+/* Carga el contenido, las unidades, sesiones y documentos del portafolio desde Supabase. */
 (function(){
   var SUPABASE_URL = "https://jyxohnsvqhhnxcmkwfgg.supabase.co";
   var SUPABASE_KEY = "sb_publishable_3La-D-KSxaVYsSYNmd6SSA_M4XkieaD";
 
   var CAMPOS = ["curso-portada","institucion","estudiante","biografia-texto","mision-texto","vision-texto","descripcion-curso","competencia","metodologia"];
 
+  function ses(a, b){ return [{titulo:a, archivos:[]}, {titulo:b, archivos:[]}]; }
   var unidadesIniciales = [
-    {nombre:"Fundamentos de la ética y la moral",sesion1:"Conceptos de ética y moral",sesion2:"Valores y principios morales",descripcion:"Fundamentos éticos que orientan la conducta humana y profesional."},
-    {nombre:"Deontología y código de ética profesional",sesion1:"Concepto de deontología",sesion2:"Código de ética de enfermería",descripcion:"Deberes y responsabilidades del profesional de enfermería."},
-    {nombre:"Principios de la bioética",sesion1:"Autonomía y beneficencia",sesion2:"No maleficencia y justicia",descripcion:"Aplicación de los principios bioéticos en el cuidado de la salud."},
-    {nombre:"Valores y virtudes del profesional de enfermería",sesion1:"Respeto y empatía",sesion2:"Responsabilidad y solidaridad",descripcion:"Importancia de los valores en la relación con el paciente."},
-    {nombre:"Derechos del paciente y consentimiento informado",sesion1:"Derechos de los pacientes",sesion2:"Consentimiento informado",descripcion:"Protección de la dignidad y autonomía de los pacientes."},
-    {nombre:"Secreto profesional y confidencialidad",sesion1:"Privacidad del paciente",sesion2:"Protección de información",descripcion:"Protección de los datos personales y de salud."},
-    {nombre:"Dilemas éticos en el cuidado",sesion1:"Identificación de dilemas",sesion2:"Toma de decisiones",descripcion:"Reflexión sobre conflictos éticos en enfermería."},
-    {nombre:"Responsabilidad legal y ejercicio ético",sesion1:"Responsabilidad profesional",sesion2:"Implicancias legales",descripcion:"Obligaciones legales y éticas del ejercicio profesional."}
+    {nombre:"Fundamentos de la ética y la moral",descripcion:"Fundamentos éticos que orientan la conducta humana y profesional.",archivos:[],sesiones:ses("Conceptos de ética y moral","Valores y principios morales")},
+    {nombre:"Deontología y código de ética profesional",descripcion:"Deberes y responsabilidades del profesional de enfermería.",archivos:[],sesiones:ses("Concepto de deontología","Código de ética de enfermería")},
+    {nombre:"Principios de la bioética",descripcion:"Aplicación de los principios bioéticos en el cuidado de la salud.",archivos:[],sesiones:ses("Autonomía y beneficencia","No maleficencia y justicia")},
+    {nombre:"Valores y virtudes del profesional de enfermería",descripcion:"Importancia de los valores en la relación con el paciente.",archivos:[],sesiones:ses("Respeto y empatía","Responsabilidad y solidaridad")},
+    {nombre:"Derechos del paciente y consentimiento informado",descripcion:"Protección de la dignidad y autonomía de los pacientes.",archivos:[],sesiones:ses("Derechos de los pacientes","Consentimiento informado")},
+    {nombre:"Secreto profesional y confidencialidad",descripcion:"Protección de los datos personales y de salud.",archivos:[],sesiones:ses("Privacidad del paciente","Protección de información")},
+    {nombre:"Dilemas éticos en el cuidado",descripcion:"Reflexión sobre conflictos éticos en enfermería.",archivos:[],sesiones:ses("Identificación de dilemas","Toma de decisiones")},
+    {nombre:"Responsabilidad legal y ejercicio ético",descripcion:"Obligaciones legales y éticas del ejercicio profesional.",archivos:[],sesiones:ses("Responsabilidad profesional","Implicancias legales")}
   ];
+
+  function agregarEstilos(){
+    var st = document.createElement("style");
+    st.textContent =
+      ".unit .sesion{margin-top:16px;padding:14px 18px;background:#f7fcfb;border-left:5px solid var(--verde);border-radius:14px}" +
+      ".unit .sesion h4{margin:0 0 4px;font-family:var(--serif);font-size:22px;color:var(--verde)}" +
+      ".unit .docs{margin-top:10px;display:grid;gap:4px}" +
+      ".unit .docs a{text-decoration:none;word-break:break-word}.unit .docs a:hover{text-decoration:underline}";
+    document.head.appendChild(st);
+  }
 
   function cargarLibreria(){
     return new Promise(function(resolver, rechazar){
@@ -38,6 +48,22 @@
     return "📄";
   }
 
+  function bloqueDocs(archivos){
+    var conUrl = (archivos || []).filter(function(a){ return a.url; });
+    if(!conUrl.length) return null;
+    var caja = document.createElement("div");
+    caja.className = "docs";
+    conUrl.forEach(function(archivo){
+      var a = document.createElement("a");
+      a.href = archivo.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = iconoArchivo(archivo.nombre, archivo.tipo) + " " + archivo.nombre;
+      caja.appendChild(a);
+    });
+    return caja;
+  }
+
   function mostrarUnidades(unidades){
     var contenedor = document.getElementById("lista-unidades");
     if(!contenedor) return;
@@ -56,28 +82,31 @@
 
       var titulo = document.createElement("h3");
       titulo.textContent = "Unidad " + (index + 1) + ": " + unidad.nombre;
+      tarjeta.appendChild(titulo);
 
-      var sesion1 = document.createElement("p");
-      sesion1.textContent = "Sesión 1: " + (unidad.sesion1 || "Por definir");
+      if(unidad.descripcion){
+        var descripcion = document.createElement("p");
+        descripcion.textContent = unidad.descripcion;
+        tarjeta.appendChild(descripcion);
+      }
 
-      var sesion2 = document.createElement("p");
-      sesion2.textContent = "Sesión 2: " + (unidad.sesion2 || "Por definir");
+      var docsUnidad = bloqueDocs(unidad.archivos);
+      if(docsUnidad) tarjeta.appendChild(docsUnidad);
 
-      var descripcion = document.createElement("p");
-      descripcion.textContent = unidad.descripcion || "";
-
-      tarjeta.append(titulo, sesion1, sesion2, descripcion);
-
-      (unidad.archivos || []).forEach(function(archivo){
-        if(!archivo.url) return;
-        var p = document.createElement("p");
-        var a = document.createElement("a");
-        a.href = archivo.url;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.textContent = iconoArchivo(archivo.nombre, archivo.tipo) + " " + archivo.nombre;
-        p.appendChild(a);
-        tarjeta.appendChild(p);
+      (unidad.sesiones || []).forEach(function(sesion, i){
+        var caja = document.createElement("div");
+        caja.className = "sesion";
+        var h = document.createElement("h4");
+        h.textContent = "Sesión " + (i + 1) + ": " + sesion.titulo;
+        caja.appendChild(h);
+        if(sesion.descripcion){
+          var p = document.createElement("p");
+          p.textContent = sesion.descripcion;
+          caja.appendChild(p);
+        }
+        var docs = bloqueDocs(sesion.archivos);
+        if(docs) caja.appendChild(docs);
+        tarjeta.appendChild(caja);
       });
 
       contenedor.appendChild(tarjeta);
@@ -96,26 +125,38 @@
     });
   }
 
+  function conUrl(cliente, meta){
+    var partes = String(meta.ruta || "").split("/");
+    var bucket = partes.shift();
+    var path = partes.join("/");
+    return {
+      nombre: meta.nombre,
+      tipo: meta.tipo,
+      url: cliente.storage.from(bucket).getPublicUrl(path).data.publicUrl
+    };
+  }
+
   async function cargarUnidades(cliente){
     var u = await cliente.from("unidades").select("*").order("orden", {ascending:true});
     if(u.error) throw u.error;
     var unidades = u.data || [];
 
-    var archivos = [];
+    var sesiones = [], archivos = [];
     if(unidades.length){
       var ids = unidades.map(function(x){ return x.id; });
+      var s = await cliente.from("sesiones").select("*").in("unidad_id", ids).order("orden", {ascending:true});
+      if(s.error) throw s.error;
+      sesiones = s.data || [];
       var a = await cliente.from("archivos").select("*").in("unidad_id", ids).order("creado_en", {ascending:true});
       if(a.error) throw a.error;
       archivos = a.data || [];
     }
 
     unidades.forEach(function(unidad){
-      unidad.archivos = archivos.filter(function(x){ return x.unidad_id === unidad.id; }).map(function(meta){
-        var partes = String(meta.ruta || "").split("/");
-        var bucket = partes.shift();
-        var path = partes.join("/");
-        var url = cliente.storage.from(bucket).getPublicUrl(path).data.publicUrl;
-        return {nombre: meta.nombre, tipo: meta.tipo, url: url};
+      unidad.archivos = archivos.filter(function(x){ return x.unidad_id === unidad.id && !x.sesion_id; }).map(function(m){ return conUrl(cliente, m); });
+      unidad.sesiones = sesiones.filter(function(x){ return x.unidad_id === unidad.id; }).map(function(se){
+        se.archivos = archivos.filter(function(x){ return x.sesion_id === se.id; }).map(function(m){ return conUrl(cliente, m); });
+        return se;
       });
     });
 
@@ -123,6 +164,7 @@
   }
 
   async function iniciar(){
+    agregarEstilos();
     try{
       await cargarLibreria();
       var cliente = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
