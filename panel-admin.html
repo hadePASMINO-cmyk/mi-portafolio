@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de administración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--rosa:#c9567f;--rosa-suave:#fbe3ec;--rosa-claro:#fff4f8;--menta:#d6efea;--verde:#3f948c;--lila:#e9e1f6;--tinta:#3d2c3b;--texto:#665663;--linea:#f1d9e3;--oro:#d9b08c;--oro-suave:#f3e0cf;--serif:"Cormorant Garamond",Georgia,serif;--sans:"Nunito","Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--texto);font-size:17px;line-height:1.6;background:radial-gradient(circle at 90% 0,#ffe3ee 0,transparent 40%),radial-gradient(circle at 0 100%,var(--menta) 0,transparent 40%),var(--rosa-claro);background-attachment:fixed}
+:focus-visible{outline:3px solid var(--verde);outline-offset:3px;border-radius:8px}.layout{display:flex;min-height:100vh}
+.sidebar{width:285px;flex-shrink:0;padding:30px 20px;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff,#fff6f9);border-right:3px solid var(--oro-suave);position:sticky;top:0;height:100vh;box-shadow:8px 0 30px #c9567f0d}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-weight:700;font-size:29px;color:var(--rosa);margin:0 8px 8px}.brand svg{width:36px;height:36px;animation:latido 2.2s ease-in-out infinite;transform-origin:center}
+@keyframes latido{0%,60%,100%{transform:scale(1)}15%{transform:scale(1.14)}30%{transform:scale(1)}42%{transform:scale(1.08)}}
+.brand-ecg{display:block;width:120px;height:22px;margin:0 8px 26px}.brand-ecg path{fill:none;stroke:var(--oro);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:260;stroke-dashoffset:260;animation:trazo 2.2s ease-out .5s forwards}@keyframes trazo{to{stroke-dashoffset:0}}
+.sidebar h4{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--oro);margin:0 0 10px 12px}
+.menu button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:15px 18px;border:0;background:transparent;color:var(--texto);border-radius:16px;margin:6px 0;font:700 16px var(--sans);cursor:pointer;transition:background .25s,color .25s,transform .25s,box-shadow .25s}
+.menu button .ic{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--rosa-suave);font-size:17px;transition:.25s}.menu button:hover{background:var(--rosa-claro);color:var(--rosa);transform:translateX(4px)}.menu button.active{background:linear-gradient(110deg,#c9567f,#d97a9b);color:#fff;box-shadow:0 10px 22px #c9567f44}.menu button.active .ic{background:#ffffff33}
+.logout{margin-top:auto;padding:14px;border:2px solid var(--rosa);background:#fff;color:var(--rosa);border-radius:30px;font:700 15px var(--sans);cursor:pointer;transition:.25s}.logout:hover{background:var(--rosa);color:#fff;transform:translateY(-2px);box-shadow:0 10px 22px #c9567f44}
+main{padding:38px 42px 60px;width:100%;max-width:1280px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:34px;padding:30px 34px;border-radius:32px 32px 32px 10px;border:1px solid var(--oro-suave);background:radial-gradient(circle at 10% 20%,#ffd9e6 0,transparent 45%),radial-gradient(circle at 95% 90%,var(--menta) 0,transparent 45%),var(--rosa-suave);position:relative;overflow:hidden;box-shadow:0 14px 36px #c9567f18;animation:entra .8s cubic-bezier(.2,.7,.2,1) both}
+header>div:first-child{position:relative;z-index:1}.pill{display:inline-block;background:#ffffffcc;border:1px solid var(--linea);color:var(--rosa);font-weight:700;font-size:14px;padding:5px 16px;border-radius:30px}
+header h1{font-family:var(--serif);font-weight:700;font-size:clamp(36px,5vw,56px);line-height:1.05;margin:12px 0 6px;color:var(--tinta);letter-spacing:.3px}header p{margin:0}header>div:first-child>p:last-child{font-size:18px}
+.status{position:relative;z-index:1;display:flex;align-items:center;gap:9px;background:#fff;color:var(--verde);padding:11px 20px;border-radius:30px;font-size:14px;font-weight:700;white-space:nowrap;border:1px solid #bfe3dd;box-shadow:0 6px 16px #3f948c1f}.status:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--verde);animation:pulso 1.8s ease-out infinite}@keyframes pulso{0%{box-shadow:0 0 0 0 #3f948c80}100%{box-shadow:0 0 0 10px #3f948c00}}
+@keyframes entra{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}.panel{display:none}.panel.active{display:block;animation:entra .6s cubic-bezier(.2,.7,.2,1) both}
+.panel h2{display:flex;align-items:center;gap:16px;font-family:var(--serif);font-weight:700;color:var(--tinta);font-size:clamp(34px,4.5vw,46px);margin:0 0 6px}.panel h2:after{content:"";flex:0 0 80px;height:3px;background:linear-gradient(90deg,var(--oro),transparent);border-radius:3px}.intro{color:var(--texto);font-size:18px;margin:0 0 24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.card{background:#fff;border:1px solid var(--oro-suave);border-radius:28px 28px 28px 8px;padding:30px;box-shadow:0 10px 30px #c9567f12;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}.card:hover{transform:translateY(-3px);box-shadow:0 18px 38px #c9567f1f}.card h3{font-family:var(--serif);font-size:29px;color:var(--rosa);margin:0 0 6px}
+.grid .card:nth-child(2){background:linear-gradient(160deg,#fff,var(--lila));border-radius:28px 28px 8px 28px}.grid .card:nth-child(2) h3{color:#8467b8}.grid .card:nth-child(3){background:linear-gradient(160deg,#fff,var(--menta));border-radius:28px 28px 8px 28px}.grid .card:nth-child(3) h3{color:var(--verde)}.grid .card:nth-child(4){border-left:6px solid var(--rosa)}
+.panel.active .grid .card{animation:entra .7s cubic-bezier(.2,.7,.2,1) both}.panel.active .grid .card:nth-child(2){animation-delay:.08s}.panel.active .grid .card:nth-child(3){animation-delay:.16s}.panel.active .grid .card:nth-child(4){animation-delay:.24s}
+label{display:block;font-weight:700;font-size:15px;color:var(--tinta);margin:16px 0 7px}
+input,textarea{width:100%;padding:14px 16px;border:1px solid var(--linea);border-radius:14px;font:400 16px var(--sans);color:var(--tinta);background:var(--rosa-claro);outline:none;transition:border-color .25s,box-shadow .25s,background .25s}
+input::placeholder,textarea::placeholder{color:#b3a2b0}input:focus,textarea:focus{border-color:var(--rosa);background:#fff;box-shadow:0 0 0 4px #c9567f1f}textarea{min-height:100px;resize:vertical;line-height:1.6}
+input[type=file]{padding:12px;border-style:dashed;border-width:2px;border-color:var(--oro);background:var(--rosa-claro);cursor:pointer;font-size:15px}input[type=file]::file-selector-button{border:0;border-radius:30px;padding:9px 18px;margin-right:12px;background:var(--rosa);color:#fff;font:700 14px var(--sans);cursor:pointer}
+.hint{font-size:14px;color:#8a7a87;margin:6px 0 0}.file-list{display:grid;gap:10px;margin-top:12px}.file-chip{display:flex;align-items:center;gap:12px;background:var(--rosa-claro);border:1px solid var(--linea);border-radius:16px;padding:10px 14px}.file-chip .fi{font-size:24px;flex-shrink:0}.file-chip .fn{flex:1;min-width:0}.file-chip .fn b{display:block;color:var(--tinta);font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-chip .fn span{font-size:13px;color:#8a7a87}.file-chip .tag{font-size:12px;font-weight:700;background:var(--menta);color:var(--verde);padding:2px 10px;border-radius:20px;margin-left:6px}.file-chip button{border:0;border-radius:30px;padding:7px 14px;font:700 13px var(--sans);cursor:pointer;transition:.2s;flex-shrink:0}.file-chip .quitar{background:#ffe9ee;color:#b83a62}.file-chip .quitar:hover{background:#b83a62;color:#fff}.file-chip .abrir{background:var(--menta);color:var(--verde)}.file-chip .abrir:hover{background:var(--verde);color:#fff}
+.actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}.primary,.secondary{border:0;border-radius:30px;padding:14px 28px;font:700 16px var(--sans);cursor:pointer;transition:background-position .6s,transform .2s,box-shadow .2s,background .2s}.primary{background:linear-gradient(110deg,#c9567f,#d97a9b,#c9567f);background-size:200% 100%;color:#fff;box-shadow:0 8px 20px #c9567f40}.primary:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 12px 26px #c9567f55}.primary:disabled{opacity:.6;cursor:wait;transform:none}.secondary{background:#fff;color:var(--rosa);border:2px solid var(--rosa);padding:12px 26px}.secondary:hover{background:var(--rosa-suave);transform:translateY(-2px)}.message{color:var(--verde);font-size:15px;font-weight:700;margin-top:14px;min-height:22px}.message.error{color:#b83a62}.message:not(:empty){animation:entra .4s both}
+.unit-list{display:grid;gap:16px;margin-top:30px;counter-reset:u}.unit-row{counter-increment:u;position:relative;background:#fff;border:1px solid var(--oro-suave);border-radius:22px 22px 22px 6px;padding:20px 24px 20px 78px;display:flex;justify-content:space-between;align-items:center;gap:18px;box-shadow:0 8px 22px #c9567f10;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s;animation:entra .6s cubic-bezier(.2,.7,.2,1) both}
+.unit-row:before{content:counter(u);position:absolute;left:22px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),#e59ab6);color:#fff;font:700 18px/40px var(--sans);text-align:center;box-shadow:0 0 0 5px var(--rosa-claro)}.unit-row:hover{transform:translateY(-3px);box-shadow:0 16px 32px #c9567f1c}.unit-row>div:first-child{min-width:0}.unit-row strong{display:block;margin-bottom:4px;font-family:var(--serif);font-size:23px;color:var(--rosa);line-height:1.2;overflow-wrap:anywhere}.unit-row small{color:var(--texto);font-size:15px}.unit-row>div:last-child{display:flex;gap:8px;flex-shrink:0}.unit-row button{border:0;padding:10px 20px;border-radius:30px;margin-left:0;cursor:pointer;font:700 14px var(--sans);transition:.2s}.edit{background:var(--menta);color:var(--verde)}.edit:hover{background:var(--verde);color:#fff}.delete{background:#ffe9ee;color:#b83a62}.delete:hover{background:#b83a62;color:#fff}.empty{background:#fff;border:2px dashed var(--oro-suave);padding:30px;border-radius:22px;color:var(--texto);text-align:center;font-size:18px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}@media(max-width:750px){body{font-size:16px}.layout{display:block}.sidebar{width:100%;height:auto;position:static;padding:18px 16px;border-right:0;border-bottom:3px solid var(--oro-suave)}.brand{font-size:26px}.brand-ecg{margin-bottom:14px}.sidebar h4{display:none}.menu{display:flex;flex-wrap:wrap;gap:8px}.menu button{width:auto;margin:0;padding:11px 16px}.menu button:hover{transform:none}.logout{margin-top:14px;width:100%}main{padding:20px 14px 40px}header{display:block;padding:24px 22px}.status{display:inline-flex;margin-top:16px}.card{padding:24px}.unit-row{align-items:flex-start;flex-direction:column;padding:20px 20px 20px 74px}.unit-row>div:last-child{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition:none!important}.brand-ecg path{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/><path d="M3.5 12h4l2-3 3 6 2-3h6" stroke-width="1.6"/></svg>Mi portafolio</div>
+  <svg class="brand-ecg" viewBox="0 0 120 22" aria-hidden="true"><path d="M0 12 H40 L45 12 L49 4 L54 18 L59 2 L64 16 L68 12 H120"/></svg>
+  <h4>Administración</h4>
+  <div class="menu"><button class="active" data-tab="contenido"><span class="ic">✎</span> Modificar portafolio</button><button data-tab="unidades"><span class="ic">▤</span> Administrar unidades</button></div>
+  <button class="logout" id="cerrar-sesion">← Volver al inicio</button>
+</aside>
+<main>
+<header><div><span class="pill">🔒 Espacio privado</span><h1>Panel de administración</h1><p>Administra el contenido de tu portafolio académico.</p></div><div class="status">Sesión activa</div></header>
+
+<section class="panel active" id="tab-contenido">
+<h2>Modificar portafolio</h2><p class="intro">Modifica los textos y guarda tus cambios.</p>
+<form id="form-contenido"><div class="grid">
+<div class="card"><h3>Presentación</h3><label for="curso-portada">Nombre del curso</label><input id="curso-portada"><label for="institucion">Institución</label><input id="institucion"><label for="estudiante">Nombre de la estudiante</label><input id="estudiante"></div>
+<div class="card"><h3>Mi biografía</h3><label for="biografia-texto">Biografía</label><textarea id="biografia-texto"></textarea></div>
+<div class="card"><h3>Misión y visión</h3><label for="mision-texto">Misión</label><textarea id="mision-texto"></textarea><label for="vision-texto">Visión</label><textarea id="vision-texto"></textarea></div>
+<div class="card"><h3>Información del curso</h3><label for="descripcion-curso">Descripción</label><textarea id="descripcion-curso"></textarea><label for="competencia">Competencia</label><textarea id="competencia"></textarea><label for="metodologia">Metodología</label><textarea id="metodologia"></textarea></div>
+</div><div class="actions"><button class="primary" type="submit">Guardar cambios</button><button class="secondary" type="button" id="recargar">Recargar datos guardados</button></div><div class="message" id="mensaje-contenido" aria-live="polite"></div></form>
+</section>
+
+<section class="panel" id="tab-unidades">
+<h2>Administrar unidades</h2><p class="intro">Agrega, modifica o elimina las unidades de aprendizaje, y adjunta los archivos que necesites.</p>
+<div class="grid">
+<div class="card"><h3 id="titulo-formulario">Agregar una unidad</h3>
+<form id="form-unidad"><input type="hidden" id="unidad-id">
+<label for="unidad-nombre">Nombre de la unidad</label><input id="unidad-nombre" required placeholder="Nombre de la unidad">
+<label for="sesion1">Sesión 1</label><input id="sesion1" placeholder="Tema de la sesión 1">
+<label for="sesion2">Sesión 2</label><input id="sesion2" placeholder="Tema de la sesión 2">
+<label for="unidad-descripcion">Descripción</label><textarea id="unidad-descripcion" placeholder="Descripción de la unidad"></textarea>
+<label for="unidad-archivos">Archivos adjuntos</label><input id="unidad-archivos" type="file" multiple><p class="hint">Word, PDF, imágenes, Excel, PowerPoint o cualquier otro archivo (máx. 20 MB cada uno).</p>
+<div class="file-list" id="lista-adjuntos"></div>
+<div class="actions"><button class="primary" id="btn-guardar" type="submit">Agregar unidad</button><button class="secondary" type="button" id="limpiar">Limpiar</button></div><div class="message" id="mensaje-unidad" aria-live="polite"></div>
+</form></div>
+<div class="card"><h3>Información</h3><p class="intro">Las unidades que registres aparecerán automáticamente en la sección de unidades del portafolio principal.</p><p class="intro">Al agregar o editar una unidad puedes adjuntar uno o varios archivos. Al editar, también puedes quitar los que ya no necesites.</p><p class="hint">Se permiten hasta 8 unidades, cada una con su bucket correspondiente. El límite de este formulario es 20 MB por archivo.</p></div>
+</div><div class="unit-list" id="lista-admin"></div>
+</section>
+</main></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* CONFIGURACIÓN */
+const SUPABASE_URL = "https://jyxohnsvqhhnxcmkwfgg.supabase.co";
+const SUPABASE_KEY = "sb_publishable_3La-D-KSxaVYsSYNmd6SSA_M4XkieaD";
+const ADMIN_EMAIL = "hademilagritospasminoishuiza@gmail.com";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const CAMPOS=["curso-portada","institucion","estudiante","biografia-texto","mision-texto","vision-texto","descripcion-curso","competencia","metodologia"];
+const UNIDADES_INICIALES=[
+{nombre:"Fundamentos de la ética y la moral",sesion1:"Conceptos de ética y moral",sesion2:"Valores y principios morales",descripcion:"Fundamentos éticos que orientan la conducta humana y profesional."},
+{nombre:"Deontología y código de ética profesional",sesion1:"Concepto de deontología",sesion2:"Código de ética de enfermería",descripcion:"Deberes y responsabilidades del profesional de enfermería."},
+{nombre:"Principios de la bioética",sesion1:"Autonomía y beneficencia",sesion2:"No maleficencia y justicia",descripcion:"Aplicación de los principios bioéticos en el cuidado de la salud."},
+{nombre:"Valores y virtudes del profesional de enfermería",sesion1:"Respeto y empatía",sesion2:"Responsabilidad y solidaridad",descripcion:"Importancia de los valores en la relación con el paciente."},
+{nombre:"Derechos del paciente y consentimiento informado",sesion1:"Derechos de los pacientes",sesion2:"Consentimiento informado",descripcion:"Protección de la dignidad y autonomía de los pacientes."},
+{nombre:"Secreto profesional y confidencialidad",sesion1:"Privacidad del paciente",sesion2:"Protección de información",descripcion:"Protección de los datos personales y de salud."},
+{nombre:"Dilemas éticos en el cuidado",sesion1:"Identificación de dilemas",sesion2:"Toma de decisiones",descripcion:"Reflexión sobre conflictos éticos en enfermería."},
+{nombre:"Responsabilidad legal y ejercicio ético",sesion1:"Responsabilidad profesional",sesion2:"Implicancias legales",descripcion:"Obligaciones legales y éticas del ejercicio profesional."}
+];
+const MAX_BYTES=20*1024*1024;
+let unidadesCache=[];
+let adjuntosExistentes=[];
+let adjuntosNuevos=[];
+let adjuntosQuitados=[];
+
+function mostrarMensaje(id,texto,esError=false){const el=document.getElementById(id);el.textContent=texto;el.classList.toggle("error",!!esError)}
+function formatoTamano(bytes){if(bytes<1024)return bytes+" B";if(bytes<1024*1024)return(bytes/1024).toFixed(1)+" KB";return(bytes/1024/1024).toFixed(1)+" MB"}
+function iconoArchivo(nombre,tipo){const ext=(nombre.split(".").pop()||"").toLowerCase();if((tipo||"").startsWith("image/"))return"🖼️";if(ext==="pdf")return"📕";if(["doc","docx","odt","rtf"].includes(ext))return"📘";if(["xls","xlsx","csv","ods"].includes(ext))return"📗";if(["ppt","pptx","odp"].includes(ext))return"📙";if(["zip","rar","7z"].includes(ext))return"🗜️";if((tipo||"").startsWith("video/"))return"🎞️";if((tipo||"").startsWith("audio/"))return"🎵";return"📄"}
+function bucketDeUnidad(unidad){const n=Number(unidad.orden);if(!Number.isInteger(n)||n<1||n>8)throw new Error("La unidad no tiene un orden válido (1 al 8).");return"unidad-"+n}
+function limpiarNombreArchivo(nombre){return nombre.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100)||"archivo"}
+function rutaDesdeMeta(meta){const partes=(meta.ruta||"").split("/");return{bucket:partes.shift(),path:partes.join("/")}}
+function validarArchivos(lista){const validos=[],rechazados=[];Array.from(lista).forEach(f=>f.size>MAX_BYTES?rechazados.push(f.name):validos.push(f));return{validos,rechazados}}
+
+async function verificarSesion(){
+ const {data,error}=await supabaseClient.auth.getSession();
+ if(error||!data.session||data.session.user.email!==ADMIN_EMAIL){window.location.replace("login.html");return false}
+ return true;
+}
+
+/* CONTENIDO */
+async function cargarContenido(){
+ const {data,error}=await supabaseClient.from("contenido").select("campo,valor");
+ if(error)throw error;
+ const mapa=Object.fromEntries((data||[]).map(x=>[x.campo,x.valor]));
+ CAMPOS.forEach(id=>{document.getElementById(id).value=typeof mapa[id]==="string"?mapa[id]:""});
+}
+document.getElementById("form-contenido").addEventListener("submit",async e=>{
+ e.preventDefault();const boton=e.submitter;boton.disabled=true;mostrarMensaje("mensaje-contenido","Guardando...");
+ try{
+  const filas=CAMPOS.map(campo=>({campo,valor:document.getElementById(campo).value.trim(),actualizado_en:new Date().toISOString()}));
+  const {error}=await supabaseClient.from("contenido").upsert(filas,{onConflict:"campo"});if(error)throw error;
+  mostrarMensaje("mensaje-contenido","✓ Cambios guardados correctamente en Supabase.");
+ }catch(err){console.error(err);mostrarMensaje("mensaje-contenido","No se pudieron guardar los cambios: "+(err.message||"revisa las políticas y la tabla contenido."),true)}
+ finally{boton.disabled=false}
+});
+document.getElementById("recargar").addEventListener("click",async()=>{
+ const b=document.getElementById("recargar");b.disabled=true;
+ try{await cargarContenido();mostrarMensaje("mensaje-contenido","Datos guardados cargados desde Supabase.")}
+ catch(err){mostrarMensaje("mensaje-contenido","No se pudieron cargar los datos: "+err.message,true)}
+ finally{b.disabled=false}
+});
+
+/* UNIDADES Y ARCHIVOS */
+async function cargarUnidades(){
+ let {data,error}=await supabaseClient.from("unidades").select("*").order("orden",{ascending:true});
+ if(error)throw error;
+ if(!data||data.length===0){
+  const iniciales=UNIDADES_INICIALES.map((u,i)=>({...u,orden:i+1}));
+  const resultado=await supabaseClient.from("unidades").insert(iniciales).select("*");
+  if(resultado.error)throw resultado.error;
+  data=resultado.data||[];
+ }
+ unidadesCache=data;
+ const ids=data.map(u=>u.id);
+ let archivos=[];
+ if(ids.length){const r=await supabaseClient.from("archivos").select("*").in("unidad_id",ids);if(r.error)throw r.error;archivos=r.data||[]}
+ unidadesCache=unidadesCache.map(u=>({...u,archivos:archivos.filter(a=>a.unidad_id===u.id)}));
+ return unidadesCache;
+}
+async function mostrarListaAdmin(){
+ const lista=document.getElementById("lista-admin");lista.replaceChildren();
+ const unidades=await cargarUnidades();
+ if(unidades.length===0){const p=document.createElement("p");p.className="empty";p.textContent="Todavía no tienes unidades registradas.";lista.appendChild(p);return}
+ unidades.forEach((unidad,index)=>{
+  const fila=document.createElement("div");fila.className="unit-row";
+  const info=document.createElement("div");const titulo=document.createElement("strong");titulo.textContent="Unidad "+(index+1)+": "+unidad.nombre;
+  const detalle=document.createElement("small");let texto=(unidad.sesion1||"Sin sesión 1")+" · "+(unidad.sesion2||"Sin sesión 2");const cant=unidad.archivos.length;if(cant)texto+=" · 📎 "+cant+(cant===1?" archivo":" archivos");detalle.textContent=texto;info.append(titulo,detalle);
+  const acciones=document.createElement("div");const editar=document.createElement("button");editar.className="edit";editar.textContent="Editar";editar.addEventListener("click",()=>editarUnidad(unidad));
+  const eliminar=document.createElement("button");eliminar.className="delete";eliminar.textContent="Eliminar";eliminar.addEventListener("click",()=>eliminarUnidad(unidad));
+  acciones.append(editar,eliminar);fila.append(info,acciones);lista.appendChild(fila);
+ });
+}
+async function eliminarUnidad(unidad){
+ if(!confirm("¿Seguro que deseas eliminar esta unidad y todos sus archivos adjuntos?"))return;
+ try{
+  for(const meta of (unidad.archivos||[])){const r=rutaDesdeMeta(meta);const {error}=await supabaseClient.storage.from(r.bucket).remove([r.path]);if(error)throw error}
+  const {error}=await supabaseClient.from("unidades").delete().eq("id",unidad.id);if(error)throw error;
+  if(document.getElementById("unidad-id").value===unidad.id)limpiarFormulario();
+  await mostrarListaAdmin();mostrarMensaje("mensaje-unidad","Unidad y archivos eliminados correctamente.");
+ }catch(err){console.error(err);mostrarMensaje("mensaje-unidad","No se pudo eliminar: "+err.message,true)}
+}
+function renderAdjuntos(){
+ const cont=document.getElementById("lista-adjuntos");cont.replaceChildren();
+ function chip(nombre,tipo,tamano,etiqueta,botones){
+  const fila=document.createElement("div");fila.className="file-chip";const ic=document.createElement("span");ic.className="fi";ic.textContent=iconoArchivo(nombre,tipo);
+  const info=document.createElement("div");info.className="fn";const n=document.createElement("b");n.textContent=nombre;const t=document.createElement("span");t.textContent=formatoTamano(tamano);
+  if(etiqueta){const tag=document.createElement("span");tag.className="tag";tag.textContent=etiqueta;t.appendChild(tag)}
+  info.append(n,t);fila.append(ic,info,...botones);return fila;
+ }
+ function boton(texto,clase,fn){const b=document.createElement("button");b.type="button";b.className=clase;b.textContent=texto;b.addEventListener("click",fn);return b}
+ adjuntosExistentes.forEach(meta=>cont.appendChild(chip(meta.nombre,meta.tipo,meta.tamano,"Guardado",[boton("Abrir","abrir",()=>abrirArchivo(meta)),boton("Quitar","quitar",()=>{adjuntosQuitados.push(meta);adjuntosExistentes=adjuntosExistentes.filter(m=>m.id!==meta.id);renderAdjuntos()})])));
+ adjuntosNuevos.forEach(item=>cont.appendChild(chip(item.file.name,item.file.type,item.file.size,"Nuevo",[boton("Quitar","quitar",()=>{adjuntosNuevos=adjuntosNuevos.filter(a=>a.tmp!==item.tmp);renderAdjuntos()})])));
+}
+async function abrirArchivo(meta){
+ try{
+  const r=rutaDesdeMeta(meta);const {data,error}=supabaseClient.storage.from(r.bucket).getPublicUrl(r.path);if(error)throw error;
+  window.location.href=data.publicUrl;
+ }catch(err){alert("No se pudo abrir el archivo: "+err.message)}
+}
+document.getElementById("unidad-archivos").addEventListener("change",e=>{
+ const {validos,rechazados}=validarArchivos(e.target.files);validos.forEach(file=>adjuntosNuevos.push({tmp:crypto.randomUUID(),file}));e.target.value="";renderAdjuntos();
+ if(rechazados.length)mostrarMensaje("mensaje-unidad","No se añadieron (superan 20 MB): "+rechazados.join(", "),true);else mostrarMensaje("mensaje-unidad","");
+});
+function limpiarFormulario(){
+ document.getElementById("form-unidad").reset();document.getElementById("unidad-id").value="";document.getElementById("titulo-formulario").textContent="Agregar una unidad";document.getElementById("btn-guardar").textContent="Agregar unidad";adjuntosExistentes=[];adjuntosNuevos=[];adjuntosQuitados=[];renderAdjuntos();
+}
+function editarUnidad(unidad){
+ limpiarFormulario();document.getElementById("unidad-id").value=unidad.id;document.getElementById("unidad-nombre").value=unidad.nombre;document.getElementById("sesion1").value=unidad.sesion1||"";document.getElementById("sesion2").value=unidad.sesion2||"";document.getElementById("unidad-descripcion").value=unidad.descripcion||"";
+ adjuntosExistentes=(unidad.archivos||[]).map(x=>({...x}));renderAdjuntos();document.getElementById("titulo-formulario").textContent="Editar unidad";document.getElementById("btn-guardar").textContent="Guardar modificación";mostrarMensaje("mensaje-unidad","");document.getElementById("form-unidad").scrollIntoView({behavior:"smooth",block:"center"});
+}
+async function subirAdjuntos(unidad){
+ const bucket=bucketDeUnidad(unidad);const metas=[];
+ for(const item of adjuntosNuevos){
+  const path=unidad.id+"/"+Date.now()+"_"+crypto.randomUUID()+"_"+limpiarNombreArchivo(item.file.name);
+  const subida=await supabaseClient.storage.from(bucket).upload(path,item.file,{upsert:false,contentType:item.file.type||"application/octet-stream"});
+  if(subida.error)throw subida.error;
+  const meta={unidad_id:unidad.id,nombre:item.file.name,tipo:item.file.type||"",tamano:item.file.size,ruta:bucket+"/"+path};
+  const guardado=await supabaseClient.from("archivos").insert(meta).select("*").single();
+  if(guardado.error){await supabaseClient.storage.from(bucket).remove([path]);throw guardado.error}
+  metas.push(guardado.data);
+ }
+ return metas;
+}
+async function guardarArchivosQuitados(){
+ for(const meta of adjuntosQuitados){
+  const r=rutaDesdeMeta(meta);const eliminado=await supabaseClient.storage.from(r.bucket).remove([r.path]);if(eliminado.error)throw eliminado.error;
+  const {error}=await supabaseClient.from("archivos").delete().eq("id",meta.id);if(error)throw error;
+ }
+}
+document.getElementById("form-unidad").addEventListener("submit",async e=>{
+ e.preventDefault();const boton=document.getElementById("btn-guardar");boton.disabled=true;mostrarMensaje("mensaje-unidad","Guardando unidad y archivos...");
+ try{
+  const id=document.getElementById("unidad-id").value;
+  const nombre=document.getElementById("unidad-nombre").value.trim();
+  const datos={nombre,sesion1:document.getElementById("sesion1").value.trim(),sesion2:document.getElementById("sesion2").value.trim(),descripcion:document.getElementById("unidad-descripcion").value.trim()};
+  let unidad;
+  if(id){
+   const resultado=await supabaseClient.from("unidades").update({...datos,actualizado_en:new Date().toISOString()}).eq("id",id).select("*").single();
+   if(resultado.error)throw resultado.error;unidad=resultado.data;
+  }else{
+   const {data:existentes,error}=await supabaseClient.from("unidades").select("orden");if(error)throw error;
+   if(existentes.length>=8)throw new Error("Ya tienes 8 unidades. Los buckets creados permiten administrar hasta 8 unidades.");
+   const usados=new Set(existentes.map(x=>Number(x.orden)));const orden=[1,2,3,4,5,6,7,8].find(n=>!usados.has(n));if(!orden)throw new Error("No hay un número de unidad disponible entre 1 y 8.");
+   const resultado=await supabaseClient.from("unidades").insert({...datos,orden}).select("*").single();if(resultado.error)throw resultado.error;unidad=resultado.data;
+  }
+  await guardarArchivosQuitados();
+  await subirAdjuntos(unidad);
+  limpiarFormulario();await mostrarListaAdmin();mostrarMensaje("mensaje-unidad","✓ Unidad y archivos guardados correctamente en Supabase.");
+ }catch(err){console.error(err);mostrarMensaje("mensaje-unidad","No se pudo completar el guardado: "+(err.message||"revisa las tablas, buckets y políticas de Supabase."),true)}
+ finally{boton.disabled=false}
+});
+document.getElementById("limpiar").addEventListener("click",()=>{limpiarFormulario();mostrarMensaje("mensaje-unidad","")});
+
+/* PESTAÑAS Y SESIÓN: siempre en esta misma pestaña */
+document.querySelectorAll("[data-tab]").forEach(boton=>boton.addEventListener("click",()=>{
+ document.querySelectorAll("[data-tab]").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));boton.classList.add("active");document.getElementById("tab-"+boton.dataset.tab).classList.add("active");
+}));
+document.getElementById("cerrar-sesion").addEventListener("click",async()=>{
+ const boton=document.getElementById("cerrar-sesion");boton.disabled=true;
+ try{await supabaseClient.auth.signOut()}catch(err){console.error(err)}
+ window.location.href="index.html";
+});
+supabaseClient.auth.onAuthStateChange((evento,sesion)=>{
+ if(evento==="SIGNED_OUT"||!sesion||sesion.user.email!==ADMIN_EMAIL)window.location.replace("login.html");
+});
+
+(async function iniciarPanel(){
+ if(!await verificarSesion())return;
+ try{
+  await cargarContenido();
+  await mostrarListaAdmin();
+  renderAdjuntos();
+ }catch(err){
+  console.error(err);
+  alert("No se pudieron cargar los datos de Supabase. Revisa las tablas, las políticas RLS y los permisos. Detalle: "+err.message);
+ }
+})();
+</script>
+</body>
+</html>
